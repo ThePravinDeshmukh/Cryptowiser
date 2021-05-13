@@ -1,0 +1,13 @@
+React + typescript
+
+bootstrap and Responsive
+
+Sign up , login and token based authentication
+
+auth on both api and react front end
+
+https
+
+swagger
+
+dotnet 5
