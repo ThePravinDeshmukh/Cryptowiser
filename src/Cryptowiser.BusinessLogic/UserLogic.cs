@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Albellicart.BusinessLogic
+namespace Cryptowiser.BusinessLogic
 {
     public class UserLogic : IUserLogic
     {

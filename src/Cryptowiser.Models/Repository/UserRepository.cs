@@ -56,6 +56,9 @@ namespace Cryptowiser.Models.Repository
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
+            if (_context.Users.Any(user=>user.Username == user.Username))
+                throw new ValidationException("Username already exists");
+
             _context.Users.Add(user);
             _context.SaveChanges();
 

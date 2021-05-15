@@ -1,6 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { Redirect } from "react-router";
+import React from "react";
 import { useForm } from "./useForm";
 
 function Signup() {
@@ -12,7 +11,6 @@ function Signup() {
         LastName: "",
     };
 
-    const [user, setUser] = useState();
 
     // getting the event handlers from our custom hook
     const { onChange, onSubmit, values } = useForm(
@@ -23,7 +21,7 @@ function Signup() {
     // a submit function that will execute upon form submission
     async function signupUserCallback() {
         // send "values" to api
-        debugger
+        
         await axios.post(
             'api/user/register',
             values
@@ -33,7 +31,7 @@ function Signup() {
                 window.location.replace("/login");
             })
         .catch(error => {
-            debugger
+            
             console.error(error.response.data.message, error);
         });
     }

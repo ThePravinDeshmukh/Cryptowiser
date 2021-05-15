@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import {
   Collapse,
   Navbar,
@@ -11,15 +11,11 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  NavbarText,
-  Container,
-  Dropdown
-} from 'reactstrap';
+  Container} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import { IProps } from '../datasources/IProps';
 import { IUser } from '../datasources/IUser';
-import { LoggerInUser } from './loggedInUser';
 
 interface INavMenuState{
   collapsed: boolean;
@@ -58,26 +54,21 @@ export class NavMenu extends Component<IProps, INavMenuState> {
                   <NavLink href="/">Home</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/dashboard">Dashboard</NavLink>
-                </NavItem>
-                <NavItem>
                   <NavLink href="/users">Users</NavLink>
                 </NavItem>
-
               </Nav>
               <ShowLogin />
             </Collapse>
           </Container>
           </Navbar>
         </div>
-
       </header>
     );
   }
 }
 
 function ShowLogin() {
-  if (localStorage.length == 0) return (
+  if (localStorage.length === 0) return (
     <ul className="navbar-nav flex-grow">
       <NavItem className="nav-item">
         <NavLink tag={Link} className="nav-link" to="/login">Login</NavLink>
@@ -88,12 +79,17 @@ function ShowLogin() {
     </ul>
   );
 
+  function  logout() {
+    localStorage.clear();
+    window.location.href = '/login';
+}
+
   var user: IUser = JSON.parse(localStorage.getItem('user') ?? "");
   return (    
     <Nav className="mr-right" navbar>
     <UncontrolledDropdown nav inNavbar>
     <DropdownToggle nav caret>
-      Signed in as: <a href="#">{ user.lastName }, { user.firstName }</a>
+      Signed in as: { user.lastName }, { user.firstName }
     </DropdownToggle>
     <DropdownMenu right>
       <DropdownItem>
@@ -101,7 +97,7 @@ function ShowLogin() {
       </DropdownItem>
       <DropdownItem divider />
       <DropdownItem>
-        <NavLink tag={Link} className="nav-link" to="/login">Logout</NavLink>
+        <NavLink tag={Link} className="nav-link" to="#" onClick={e=> logout()}>Logout</NavLink>
       </DropdownItem>
     </DropdownMenu>
   </UncontrolledDropdown>

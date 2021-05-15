@@ -1,16 +1,16 @@
-import React, { Component, useContext } from 'react';
-//import { Route } from 'react-router';
+import React, { Component } from 'react';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
-import { Dashboard } from './components/Dashboard';
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import './custom.css'
-
-//import Login from "./components/login.component";
 import Login from "./components/Login";
 import SignUp from "./components/Signup";
-import { FetchUsers } from './repository/User.Repository';
-import { IUser } from './datasources/IUser';
+import { Users } from './repository/User.Repository';
 import axios from 'axios';
 import { authHeader } from '../src/_helpers/auth-header';
 
@@ -29,11 +29,11 @@ export default class App extends Component<IProps, IAppState> {
     const headers = authHeader();
     const res = await axios.get('api/user/authenticate', { headers })
     .then(response => {
-      debugger
+      
       isAuthenticated = true;
     })
     .catch(error => {
-      debugger
+      
       console.log('Invalid Token! Redirecting to Login.');
       isAuthenticated = false;
     });
@@ -44,41 +44,38 @@ export default class App extends Component<IProps, IAppState> {
  }
 
   constructor(props: IProps) {
-    debugger
+    
     super(props);
       this.state={isAuth:false};
   }
 
-  async componentDidMount() {  
+  async componentDidMount() {
+    await this.getAuthenticationStatus();
 }
 
   render () {
-
-    this.getAuthenticationStatus();
     
     let isAuth = this.state.isAuth
     return (
-      <div >    
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Switch>
-          <PrivateRoute
-              path='/dashboard'
-              redirect={Login}
-              component={Dashboard}
-              isAuthenticated={isAuth}
-          />
-          <PrivateRoute
-              path='/users'
-              redirect={Login}
-              component={FetchUsers}
-              isAuthenticated={isAuth}
-          />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={SignUp} />
-          
-        </Switch>
-      </Layout>
+      <div >
+          <Layout>
+            <Switch>
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={SignUp} />
+              <PrivateRoute
+                  path='/users'
+                  redirect={ Login }
+                  component={ Users }
+                  isAuthenticated={isAuth}
+              />
+              <PrivateRoute
+                  path='/'
+                  redirect={Login}
+                  component={Home}
+                  isAuthenticated={isAuth}
+              />
+            </Switch>
+          </Layout>
       </div>
     );
   }
@@ -87,7 +84,7 @@ export default class App extends Component<IProps, IAppState> {
 
 
 const PrivateRoute = ({component, redirect, isAuthenticated, ...rest}: any) => {
-  debugger
+  
     const routeComponent = (props: any) => (
       
         (isAuthenticated)
@@ -96,14 +93,3 @@ const PrivateRoute = ({component, redirect, isAuthenticated, ...rest}: any) => {
     );
     return <Route {...rest} render={routeComponent}/>;
 };
-
-
-function getUser() {
-  let user01 = {} as IUser;
-  if (localStorage.getItem("user") === null) {
-  } else {
-    user01 = JSON.parse(localStorage.getItem('user')?? "");
-  }
-  return user01;
-}
-

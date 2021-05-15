@@ -1,4 +1,4 @@
-using Albellicart.BusinessLogic;
+using Cryptowiser.BusinessLogic;
 using AutoMapper;
 using Cryptowiser.ExternalServices;
 using Cryptowiser.Helpers;

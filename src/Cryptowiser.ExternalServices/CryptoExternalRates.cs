@@ -9,7 +9,7 @@ namespace Cryptowiser.ExternalServices
 
     public interface ICryptoExternalRates
     {
-        public T GetSymbols<T>(string cryptobase, string key);
+        public T GetSymbols<T>(string cryptobase, string key, string sort);
         public T GetQuote<T>(string cryptobase, string key, string symbol, string convert);
     }
     public class CryptoExternalRates : ICryptoExternalRates
@@ -19,14 +19,12 @@ namespace Cryptowiser.ExternalServices
 
         }
 
-        public T GetSymbols<T>(string cryptobase, string key)
+        public T GetSymbols<T>(string cryptobase, string key, string sort = "symbol")
         {
             var URL = new UriBuilder(cryptobase + "cryptocurrency/listings/latest");
 
             var queryString = HttpUtility.ParseQueryString(string.Empty);
-            queryString["sort"] = "symbol";
-            queryString["limit"] = "5000";
-            queryString["convert"] = "USD";
+            queryString["sort"] = sort;
 
             URL.Query = queryString.ToString();
 
@@ -49,6 +47,7 @@ namespace Cryptowiser.ExternalServices
             var client = new WebClient();
             client.Headers.Add("X-CMC_PRO_API_KEY", key);
             client.Headers.Add("Accepts", "application/json");
+            var result = client.DownloadString(URL.ToString());
             return JsonConvert.DeserializeObject<T>(client.DownloadString(URL.ToString()));
         }
     }

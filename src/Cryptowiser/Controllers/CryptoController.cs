@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Albellicart.BusinessLogic;
+using Cryptowiser.BusinessLogic;
 using AutoMapper;
 using Cryptowiser.Helpers;
 using Cryptowiser.Models;
@@ -38,20 +38,28 @@ namespace Cryptowiser.Controllers
         }
 
 
-        [HttpGet("symbols")]
-        public IActionResult GetAll()
+        [HttpGet("symbols/{sort}")]
+        public IActionResult GetAll(string sort)
         {
-            var symbols = _cryptoLogic.GetSymbols(_appSettings.CryptoBaseUrl, _appSettings.ApiKey);
+            var symbols = _cryptoLogic.GetSymbols(_appSettings.CryptoBaseUrl, _appSettings.ApiKey, sort);
             var model = _mapper.Map<IList<string>>(symbols);
             return Ok(model);
         }
 
-        [HttpGet("rates")]
-        public IActionResult GetRates(string symbol, string[] convert)
+        [HttpPost("rates/{symbol}")]
+        public IActionResult GetRates(string symbol, [FromBody] string[] convertTo)
         {
-            var rates = _cryptoLogic.GetRates(_appSettings.CryptoBaseUrl, _appSettings.ApiKey, symbol, convert);
-            var model = _mapper.Map<IList<string>>(rates);
-            return Ok(model);
+            var rates = _cryptoLogic.GetRates(_appSettings.CryptoBaseUrl, _appSettings.ApiKey, symbol, convertTo);
+            //var model = _mapper.Map<IList<string>>(rates);
+            return Ok(rates);
+        }
+
+        [HttpGet("rates/{symbol}")]
+        public IActionResult GetRates(string symbol)
+        {
+            var rates = _cryptoLogic.GetRates(_appSettings.CryptoBaseUrl, _appSettings.ApiKey, symbol);
+            //var model = _mapper.Map<IList<string>>(rates);
+            return Ok(rates);
         }
 
 

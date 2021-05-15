@@ -1,7 +1,7 @@
 ﻿using Cryptowiser.Models;
 using System.Collections.Generic;
 
-namespace Albellicart.BusinessLogic
+namespace Cryptowiser.BusinessLogic
 {
     public interface IUserLogic
     {
