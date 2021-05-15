@@ -70,7 +70,7 @@ export class Autocom extends Component<IProps, IAutocomState> {
                   <tr>
                     <th>Name</th>
                     <th>Price</th>
-                    <th>LastUpdated</th>
+                    <th>Last Updated</th>
                   </tr>
                 </thead>
                 <tbody>
