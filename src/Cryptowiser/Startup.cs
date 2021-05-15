@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Cryptowiser.IoC;
 
 namespace Cryptowiser
 {
@@ -93,15 +94,12 @@ namespace Cryptowiser
                 };
             });
 
+            Dependencies.Map(services);
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
 
 
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ICryptoExternalRates, CryptoExternalRates>();
-            services.AddScoped<ICryptoLogic, CryptoLogic>();
-            services.AddScoped<ICryptoExternalRates, CryptoExternalRates>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

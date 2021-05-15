@@ -2,7 +2,6 @@
 using Cryptowiser.ExternalServices;
 using Cryptowiser.Models;
 using Cryptowiser.Models.Enums;
-using Cryptowiser.Models.Repository;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -32,7 +31,7 @@ namespace Cryptowiser.BusinessLogic
         }
         public IEnumerable<string> GetSymbols(string cryptobaseurl, string key, string sort)
         {
-            var result = _cryptoExternalRates.GetSymbols<JObject>(cryptobaseurl, key, sort);
+            var result = JsonConvert.DeserializeObject<JObject>(_cryptoExternalRates.GetSymbols(cryptobaseurl, key, sort));
 
             IEnumerable<string> symbols =
                 result[Constants.DATA]
@@ -53,19 +52,23 @@ namespace Cryptowiser.BusinessLogic
 
         private IEnumerable<SymbolRate> GetRatesForCrypto(string cryptobaseurl, string key, string symbol, string[] convertTo)
         {
-            var result = _cryptoExternalRates.GetQuote<JObject>(cryptobaseurl, key, symbol, string.Join(separator, convertTo));
+            List<SymbolRate> symbolRates = new List<SymbolRate>();
 
-            var symbolRates = 
-                result[Constants.DATA][symbol][Constants.QUOTE]
-                .Select(
-                    symbol => 
-                    new SymbolRate
-                    { 
-                        Name =((JProperty)symbol).Name,
-                        PriceDetail = ((JProperty)symbol).Value.ToObject<PriceDetail>() 
-                    })
-                .ToList();
+            foreach (string currency in convertTo)
+            {
+                var result = JsonConvert.DeserializeObject<JObject>(_cryptoExternalRates.GetQuote(cryptobaseurl, key, symbol, currency));
 
+                symbolRates.AddRange(
+                    result[Constants.DATA][symbol][Constants.QUOTE]
+                    .Select(
+                        symbol =>
+                        new SymbolRate
+                        {
+                            Name = ((JProperty)symbol).Name,
+                            PriceDetail = ((JProperty)symbol).Value.ToObject<PriceDetail>()
+                        })
+                    .ToList());
+            }
 
 
             return symbolRates;
