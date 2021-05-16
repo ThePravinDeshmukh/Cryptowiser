@@ -16,6 +16,7 @@ import { authHeader } from '../src/_helpers/auth-header';
 
 interface IAppState {
   isAuth: boolean;
+  loading :boolean;
 }
 interface IProps {
 }
@@ -23,6 +24,7 @@ interface IProps {
 
 export default class App extends Component<IProps, IAppState> {
   static displayName = App.name;
+
 
   async getAuthenticationStatus() : Promise<boolean> {
     let isAuthenticated: boolean = false;
@@ -40,13 +42,14 @@ export default class App extends Component<IProps, IAppState> {
     await res;
     
     this.setState({isAuth: isAuthenticated})
+    this.setState({loading: false})
     return isAuthenticated;
  }
 
   constructor(props: IProps) {
     
     super(props);
-      this.state={isAuth:false};
+      this.state={isAuth:false, loading: true};
   }
 
   async componentDidMount() {
@@ -59,7 +62,7 @@ export default class App extends Component<IProps, IAppState> {
     return (
       <div >
           <Layout>
-            <Switch>
+            {!this.state.loading && (<Switch>
               <Route path="/login" component={Login} />
               <Route path="/signup" component={SignUp} />
               <PrivateRoute
@@ -74,7 +77,7 @@ export default class App extends Component<IProps, IAppState> {
                   component={Home}
                   isAuthenticated={isAuth}
               />
-            </Switch>
+            </Switch>)}
           </Layout>
       </div>
     );

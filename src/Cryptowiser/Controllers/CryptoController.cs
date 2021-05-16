@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 
 namespace Cryptowiser.Controllers
 {
@@ -49,7 +50,7 @@ namespace Cryptowiser.Controllers
             }
             catch (BadResponseException ex)
             {
-                // return error message if there was an exception
+                Log.Error(ex.ToString());
                 return BadRequest(new
                 {
                     message = ex.Message
@@ -67,7 +68,7 @@ namespace Cryptowiser.Controllers
             }
             catch (BadResponseException ex)
             {
-                // return error message if there was an exception
+                Log.Error(ex.ToString());
                 return BadRequest(new { message = ex.Message });
             }
         }
@@ -82,11 +83,9 @@ namespace Cryptowiser.Controllers
             }
             catch (BadResponseException ex)
             {
-                // return error message if there was an exception
+                Log.Error(ex.ToString());
                 return BadRequest(new { message = ex.Message });
             }
         }
-
-
     }
 }

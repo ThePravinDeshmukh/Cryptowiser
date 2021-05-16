@@ -22,6 +22,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Cryptowiser.IoC;
+using Serilog;
 
 namespace Cryptowiser
 {
@@ -160,6 +161,8 @@ namespace Cryptowiser
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+            Log.Information("Started Web Host");
 
         }
     }

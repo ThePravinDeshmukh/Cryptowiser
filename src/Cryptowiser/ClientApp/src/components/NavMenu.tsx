@@ -16,6 +16,8 @@ import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import { IProps } from '../datasources/IProps';
 import { IUser } from '../datasources/IUser';
+import { LoggerInUser } from './loggedInUser';
+import { unstable_renderSubtreeIntoContainer } from 'react-dom';
 
 interface INavMenuState{
   collapsed: boolean;
@@ -68,13 +70,16 @@ export class NavMenu extends Component<IProps, INavMenuState> {
 }
 
 function ShowLogin() {
-  if (localStorage.length === 0) return (
+  
+  var user = LoggerInUser();
+  if (user.token === undefined) return (
+    
     <ul className="navbar-nav flex-grow">
       <NavItem className="nav-item">
         <NavLink tag={Link} className="nav-link" to="/login">Login</NavLink>
       </NavItem>
       <NavItem className="nav-item">
-        <NavLink tag={Link} className="nav-link" to="/signup">Signup</NavLink>
+        <NavLink tag={Link} className="nav-link" active to="/signup">Signup</NavLink>
       </NavItem>
     </ul>
   );

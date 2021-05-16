@@ -231,3 +231,5 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 /publish/win10x64
+/coverage/coveragereport
+/src/Cryptowiser/CryptowiserDatabase.db

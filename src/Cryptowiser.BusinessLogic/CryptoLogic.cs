@@ -4,6 +4,7 @@ using Cryptowiser.Models;
 using Cryptowiser.Models.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,7 @@ namespace Cryptowiser.BusinessLogic
             }
             catch (Exception ex)
             {
+                Log.Error(ex.ToString());
                 throw new BadResponseException("BR001", ex.Message);
             }
         }
@@ -82,6 +84,7 @@ namespace Cryptowiser.BusinessLogic
             }
             catch (Exception ex)
             {
+                Log.Error(ex.ToString());
                 throw new BadResponseException("BR002", ex.Message);
             }
 
