@@ -36,7 +36,7 @@ Confluence - https://techfactor.atlassian.net/l/c/EK5xW6qT
 
 ## Tech-Stack
 
-| Component        	| Attribute					| MoSCoW | Value  	| Status  | Reference |
+| Component        	| Attribute					| Value | MoSCoW  	| Status  | Reference |
 | ------------- 	|-------------		| -------------	| -------------	| ------------- |-------------|
 | Web API | Repository 					| GitHub | Must | Done | https://github.com/ThePravinDeshmukh/cryptowiser |
 |  | Framework 							| dotnet 5 | Must | Done | https://dotnet.microsoft.com/download/dotnet/5.0 |
