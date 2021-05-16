@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Text;
 using Moq;
 using Cryptowiser.ExternalServices;
+using System.Linq;
+using FluentAssertions;
+using Cryptowiser.Models;
 
 namespace Cryptowiser.BusinessLogic.Tests
 {
@@ -21,85 +24,111 @@ namespace Cryptowiser.BusinessLogic.Tests
         }
 
         [Fact()]
-        public void GetSymbolsTest()
+        public void GetSymbols_Should_Return_Valid_Symbols_String_Array()
         {
             string externalJson =
-@"{
-      ""data"": [
-        {
-          "symbol": "BTC",
-          "quote": {
-            "USD": {
-              "price": 9558.55163723,
-              "volume_24h": 13728947008.2722,
-              "percent_change_1h": -0.127291,
-              "percent_change_24h": 0.328918,
-              "percent_change_7d": -8.00576,
-              "market_cap": 171155540318.86005,
-              "last_updated": "2019-08-30T18:51:28.000Z"
-            }
-          }
-        },
-        {
-          "id": 1027,
-          "name": "Ethereum",
-          "symbol": "ETH",
-          "slug": "ethereum",
-          "num_market_pairs": 5629,
-          "date_added": "2015-08-07T00:00:00.000Z",
-          "tags": [
-            "mineable"
-          ],
-          "max_supply": null,
-          "circulating_supply": 107537936.374,
-          "total_supply": 107537936.374,
-          "platform": null,
-          "cmc_rank": 2,
-          "last_updated": "2019-08-30T18:51:21.000Z",
-          "quote": {
-            "USD": {
-              "price": 168.688633539,
-              "volume_24h": 5774323846.44399,
-              "percent_change_1h": -0.0330049,
-              "percent_change_24h": -0.510765,
-              "percent_change_7d": -13.1883,
-              "market_cap": 18140427540.533985,
-              "last_updated": "2019-08-30T18:51:21.000Z"
-            }
-          }
-        },
-        {
-        "id": 52,
-          "name": "XRP",
-          "symbol": "XRP",
-          "slug": "ripple",
-          "num_market_pairs": 449,
-          "date_added": "2013-08-04T00:00:00.000Z",
-          "tags": [],
-          "max_supply": 100000000000,
-          "circulating_supply": 42932866967,
-          "total_supply": 99991366793,
-          "platform": null,
-          "cmc_rank": 3,
-          "last_updated": "2019-08-30T18:51:03.000Z",
-          "quote": {
-            "USD": {
-                "price": 0.254448519152,
-              "volume_24h": 926785215.623047,
-              "percent_change_1h": -0.187121,
-              "percent_change_24h": -1.85857,
-              "percent_change_7d": -7.81634,
-              "market_cap": 10924204422.702969,
-              "last_updated": "2019-08-30T18:51:03.000Z"
-            }
+                @"{
+                ""data"": [
+                {
+                  ""symbol"": ""BTC"",
+                  ""quote"": {
+                    ""USD"": {
+                      ""price"": 9558.55163723,
+                      ""last_updated"": ""2019-08-30T18:51:28.000Z""
+                    }
+                  }
+                },
+                {
+                  ""symbol"": ""ETH"",
+                  ""quote"": {
+                    ""USD"": {
+                    ""last_updated"": ""2019-08-30T18:51:21.000Z""
+                    }
+                  }
+                },
+                {
+                  ""symbol"": ""XRP"",
+                  ""quote"": {
+                    ""USD"": {
+                        ""price"": 0.254448519152,
+                        ""last_updated"": ""2019-08-30T18:51:03.000Z""
+                    }
+                }
+             }]
+            }";
+
+            _mockCryptoExternalRates.Setup(x => x.GetExternalSymbols(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(externalJson);
+
+            var symbols = _target.GetSymbols(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>());
+
+            symbols.Should().NotBeNullOrEmpty();
+            symbols.Count().Should().Be(3);
+            symbols.Should().Contain(new string[] { "BTC", "ETH", "XRP" });
         }
-    }]
-}";
 
-            _mockCryptoExternalRates.Setup(x => x.GetSymbols(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(externalJson);
 
-            _target.GetSymbols(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())
-            Assert.True(false, "This test needs an implementation");
+        [Fact()]
+        public void GetSymbols_Should_Throw_Exception_When_Bad_Response_From_API()
+        {
+            _mockCryptoExternalRates.Setup(x => x.GetExternalSymbols(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(string.Empty);
+
+            Assert.Throws<BadResponseException>(() => _target.GetSymbols(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
+            _mockCryptoExternalRates.Verify(mock => mock.GetExternalSymbols(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once());
+        }
+
+        [Fact()]
+        public void GetQuotes_Should_Throw_Exception_When_Bad_Response_From_API()
+        {
+            _mockCryptoExternalRates.Setup(x => x.GetExternalQuote(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(string.Empty);
+
+            Assert.Throws<BadResponseException>(() => _target.GetQuotes(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
+            _mockCryptoExternalRates.Verify(mock => mock.GetExternalQuote(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once());
+        }
+        [Fact()]
+        public void GetQuotes_Should_Return_Valid_SymbolRates__Array()
+        {
+            string symboRate =
+                @"
+                    {
+                      ""data"": {
+                        ""{0}"": {
+                          ""symbol"": ""{0}"",
+                          ""quote"": {
+                            ""{1}"": {
+                              ""price"": {2}, 
+                              ""last_updated"": ""{3}""
+                            }
+                          }
+                        }
+                    }
+                }
+                ";
+
+            object[] symbolRateUSD = { "BTC", "USD", 3770.0096702907013, "2021-05-15T16:30:02.000Z" };
+            object[] symbolRateAUD = { "BTC", "AUD", 1.2225559990000, "2021-05-15T16:30:02.000Z" };
+
+            _mockCryptoExternalRates
+                .Setup(x => x.GetExternalQuote(It.IsAny<string>(), It.IsAny<string>(), symbolRateUSD[0].ToString(), symbolRateUSD[1].ToString()))
+                .Returns(symboRate
+                    .Replace("{0}", symbolRateUSD[0].ToString())
+                    .Replace("{1}", symbolRateUSD[1].ToString())
+                    .Replace("{2}", symbolRateUSD[2].ToString())
+                    .Replace("{3}", symbolRateUSD[3].ToString())
+                );
+
+            _mockCryptoExternalRates
+                .Setup(x => x.GetExternalQuote(It.IsAny<string>(), It.IsAny<string>(), symbolRateAUD[0].ToString(), symbolRateAUD[1].ToString()))
+                .Returns(symboRate
+                    .Replace("{0}", symbolRateAUD[0].ToString())
+                    .Replace("{1}", symbolRateAUD[1].ToString())
+                    .Replace("{2}", symbolRateAUD[2].ToString())
+                    .Replace("{3}", symbolRateAUD[3].ToString())
+                );
+
+            var symbolRates = _target.GetQuotes(It.IsAny<string>(), It.IsAny<string>(), "BTC", new string[]{ symbolRateUSD[1].ToString(), symbolRateAUD[1].ToString() });
+
+            symbolRates.Should().NotBeNullOrEmpty();
+            symbolRates.Count().Should().Be(2);
         }
     }
 }

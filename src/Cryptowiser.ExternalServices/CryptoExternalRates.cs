@@ -8,8 +8,8 @@ namespace Cryptowiser.ExternalServices
 {
     public interface ICryptoExternalRates
     {
-        public string GetSymbols(string cryptobase, string key, string sort);
-        public string GetQuote(string cryptobase, string key, string symbol, string convert);
+        public string GetExternalSymbols(string cryptobase, string key, string sort);
+        public string GetExternalQuote(string cryptobase, string key, string symbol, string convert);
     }
     public class CryptoExternalRates : ICryptoExternalRates
     {
@@ -22,7 +22,7 @@ namespace Cryptowiser.ExternalServices
         public const string ENDPOINT_QUOTES = "cryptocurrency/quotes/latest";
         public const string ENDPOINT_LISTINGS = "cryptocurrency/listings/latest";
 
-        public string GetSymbols(string cryptobase, string key, string sort = SYMBOL)
+        public string GetExternalSymbols(string cryptobase, string key, string sort = SYMBOL)
         {
             var URL = new UriBuilder(cryptobase + ENDPOINT_LISTINGS);
 
@@ -37,7 +37,7 @@ namespace Cryptowiser.ExternalServices
             return client.DownloadString(URL.ToString());
         }
 
-        public string GetQuote(string cryptobase, string key, string symbol, string convert)
+        public string GetExternalQuote(string cryptobase, string key, string symbol, string convert)
         {
             var URL = new UriBuilder(cryptobase + ENDPOINT_QUOTES);
 

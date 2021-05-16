@@ -12,7 +12,7 @@ namespace Cryptowiser.BusinessLogic
 {
     public class CryptoLogic : ICryptoLogic
     {
-        
+
         private string[] DefaultConvertTo =
             {
                 CurrencyEnum.USD.ToString(),
@@ -21,31 +21,37 @@ namespace Cryptowiser.BusinessLogic
                 CurrencyEnum.GBP.ToString(),
                 CurrencyEnum.AUD.ToString()
             };
-        private const char separator = ',';
 
         private readonly ICryptoExternalRates _cryptoExternalRates;
         public CryptoLogic(ICryptoExternalRates cryptoExternalRates)
         {
             _cryptoExternalRates = cryptoExternalRates;
-            
+
         }
         public IEnumerable<string> GetSymbols(string cryptobaseurl, string key, string sort)
         {
-            var result = JsonConvert.DeserializeObject<JObject>(_cryptoExternalRates.GetSymbols(cryptobaseurl, key, sort));
+            try
+            {
+                JObject externalRatesJObject = JsonConvert.DeserializeObject<JObject>(_cryptoExternalRates.GetExternalSymbols(cryptobaseurl, key, sort));
 
-            IEnumerable<string> symbols =
-                result[Constants.DATA]
-                .ToObject<List<Symbol>>()
-                .Select(x => x.Name)
-                .ToList();
+                IEnumerable<string> symbols =
+                    externalRatesJObject[Constants.DATA]
+                    .ToObject<List<Symbol>>()
+                    .Select(x => x.Name)
+                    .ToList();
 
-            return symbols;
+                return symbols;
+            }
+            catch (Exception ex)
+            {
+                throw new BadResponseException("BR001", ex.Message);
+            }
         }
-        public IEnumerable<SymbolRate> GetRates(string cryptobaseurl, string key, string symbol, string[] convertTo)
+        public IEnumerable<SymbolRate> GetQuotes(string cryptobaseurl, string key, string symbol, string[] convertTo)
         {
             return GetRatesForCrypto(cryptobaseurl, key, symbol, convertTo);
         }
-        public IEnumerable<SymbolRate> GetRates(string cryptobaseurl, string key, string symbol)
+        public IEnumerable<SymbolRate> GetQuotes(string cryptobaseurl, string key, string symbol)
         {
             return GetRatesForCrypto(cryptobaseurl, key, symbol, DefaultConvertTo);
         }
@@ -54,40 +60,33 @@ namespace Cryptowiser.BusinessLogic
         {
             List<SymbolRate> symbolRates = new List<SymbolRate>();
 
-            foreach (string currency in convertTo)
+            try
             {
-                var result = JsonConvert.DeserializeObject<JObject>(_cryptoExternalRates.GetQuote(cryptobaseurl, key, symbol, currency));
+                foreach (string currency in convertTo)
+                {
+                    JObject externalRatesJObject = JsonConvert.DeserializeObject<JObject>(_cryptoExternalRates.GetExternalQuote(cryptobaseurl, key, symbol, currency));
 
-                symbolRates.AddRange(
-                    result[Constants.DATA][symbol][Constants.QUOTE]
-                    .Select(
-                        symbol =>
-                        new SymbolRate
-                        {
-                            Name = ((JProperty)symbol).Name,
-                            PriceDetail = ((JProperty)symbol).Value.ToObject<PriceDetail>()
-                        })
-                    .ToList());
+
+                    symbolRates.AddRange(
+                        externalRatesJObject[Constants.DATA][symbol][Constants.QUOTE]
+                        .Select(
+                            symbol =>
+                            new SymbolRate
+                            {
+                                Name = ((JProperty)symbol).Name,
+                                PriceDetail = ((JProperty)symbol).Value.ToObject<PriceDetail>()
+                            })
+                        .ToList());
+                }
+
             }
-
+            catch (Exception ex)
+            {
+                throw new BadResponseException("BR002", ex.Message);
+            }
 
             return symbolRates;
         }
     }
-
-
-    public class SymbolRate
-    {
-        public string Name { get; set; }
-        public PriceDetail PriceDetail { get; set; }
-    }
-    public class PriceDetail
-    {
-        [JsonProperty("price")]
-        public float Price { get; set; }
-        [JsonProperty("last_updated")]
-        public DateTime LastUpdated { get; set; }
-    }
-
 }
 

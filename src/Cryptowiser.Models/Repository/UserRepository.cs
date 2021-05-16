@@ -46,7 +46,7 @@ namespace Cryptowiser.Models.Repository
         {
             // validation
             if (string.IsNullOrWhiteSpace(password))
-                throw new ValidationException(Constants.PASSWORD_EMPTY_ERROR);
+                throw new ValidationException("VE001", Constants.PASSWORD_EMPTY_ERROR);
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -55,7 +55,7 @@ namespace Cryptowiser.Models.Repository
             user.PasswordSalt = passwordSalt;
 
             if (_context.Users.Any(x => x.Username == user.Username))
-                throw new ValidationException(Constants.USERNAME_TAKEN);
+                throw new ValidationException("VE002", Constants.USERNAME_TAKEN);
 
             _context.Users.Add(user);
             _context.SaveChanges();
@@ -78,14 +78,14 @@ namespace Cryptowiser.Models.Repository
             var user = _context.Users.Find(userParam.Id);
 
             if (user == null)
-                throw new ValidationException(Constants.USER_NOT_FOUND);
+                throw new ValidationException("VE003", Constants.USER_NOT_FOUND);
 
             // update username if it has changed
             if (!string.IsNullOrWhiteSpace(userParam.Username) && userParam.Username != user.Username)
             {
                 // throw error if the new username is already taken
                 if (_context.Users.Any(x => x.Username == userParam.Username))
-                    throw new ValidationException(Constants.USERNAME_TAKEN);
+                    throw new ValidationException("VE003", Constants.USERNAME_TAKEN);
 
                 user.Username = userParam.Username;
             }

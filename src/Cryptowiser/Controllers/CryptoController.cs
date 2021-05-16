@@ -41,25 +41,50 @@ namespace Cryptowiser.Controllers
         [HttpGet("symbols/{sort}")]
         public IActionResult GetAll(string sort)
         {
-            var symbols = _cryptoLogic.GetSymbols(_appSettings.CryptoBaseUrl, _appSettings.ApiKey, sort);
-            var model = _mapper.Map<IList<string>>(symbols);
-            return Ok(model);
+            try
+            {
+                var symbols = _cryptoLogic.GetSymbols(_appSettings.CryptoBaseUrl, _appSettings.ApiKey, sort);
+                var model = _mapper.Map<IList<string>>(symbols);
+                return Ok(model);
+            }
+            catch (BadResponseException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new
+                {
+                    message = ex.Message
+                });
+            }
         }
 
         [HttpPost("rates/{symbol}")]
         public IActionResult GetRates(string symbol, [FromBody] string[] convertTo)
         {
-            var rates = _cryptoLogic.GetRates(_appSettings.CryptoBaseUrl, _appSettings.ApiKey, symbol, convertTo);
-            //var model = _mapper.Map<IList<string>>(rates);
-            return Ok(rates);
+            try
+            {
+                var rates = _cryptoLogic.GetQuotes(_appSettings.CryptoBaseUrl, _appSettings.ApiKey, symbol, convertTo);
+                return Ok(rates);
+            }
+            catch (BadResponseException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpGet("rates/{symbol}")]
         public IActionResult GetRates(string symbol)
         {
-            var rates = _cryptoLogic.GetRates(_appSettings.CryptoBaseUrl, _appSettings.ApiKey, symbol);
-            //var model = _mapper.Map<IList<string>>(rates);
-            return Ok(rates);
+            try
+            {
+                var rates = _cryptoLogic.GetQuotes(_appSettings.CryptoBaseUrl, _appSettings.ApiKey, symbol);
+                return Ok(rates);
+            }
+            catch (BadResponseException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
 
