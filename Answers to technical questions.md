@@ -2,7 +2,8 @@
 # Answers to technical questions
 
 
-Q 1. How long did you spend on the coding assignment? What would you add to your solution if you had
+## 1. 
+**Question** - How long did you spend on the coding assignment? What would you add to your solution if you had
 more time? If you didn't spend much time on the coding assignment then use this as an opportunity to
 explain what you would add. 
 
@@ -27,7 +28,8 @@ I would
   I would like to change that too.
 
 
-2. What was the most useful feature that was added to the latest version of your language of choice?
+## 2. 
+**Question** - What was the most useful feature that was added to the latest version of your language of choice?
 Please include a snippet of code that shows how you've used it.
 
 **Pravin** - C# is my language of choice, I have been working on it for 9 years and still think there is so much to learn and improve in it, 
@@ -60,7 +62,8 @@ Many of the other features help you write code more efficiently. In C# 9.0, you 
 ![](img/fitnfinish.jpg)
 
 
-3. How would you track down a performance issue in production? Have you ever had to do this?
+## 3. 
+**Question** - How would you track down a performance issue in production? Have you ever had to do this?
 
 **Pravin** - Yes, this has happened in few instances to us and I helped investigate and resolve them.
 
@@ -91,7 +94,8 @@ Further added graphql at top so that user can only request fields he wanted to s
 
 Report run length has improved from 40 mins to 30 seconds.
 
-4. What was the latest technical book you have read or tech conference you have been to? What did you
+## 4. 
+**Question** - What was the latest technical book you have read or tech conference you have been to? What did you
 learn?
 
 **Pravin** - I don't read books. But I like to watch videos related to technology mostly because you see what you needed to see and also can try hands-on.
@@ -109,12 +113,14 @@ funny enough, it didn't worked in live when they tried demonstrating. (https://w
 
 But I worked it out later in POC.
 
-5. What do you think about this technical assessment?
+## 5. 
+**Question** -  What do you think about this technical assessment?
 
 **Pravin** - Assignment is good and got me thinking on multiple things.
 
 
-6. Please, describe yourself using JSON.
+## 6. 
+**Question** - . Please, describe yourself using JSON.
 
 ```
 [
