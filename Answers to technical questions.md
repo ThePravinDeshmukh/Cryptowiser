@@ -2,17 +2,12 @@
 # Answers to technical questions
 
 
-4. What was the latest technical book you have read or tech conference you have been to? What did you
-learn?
-5. What do you think about this technical assessment?
-6. Please, describe yourself using JSON.
-
-
-Q 1. How long did you spend on the coding assignment? What would you add to your solution if you had
+## 1. 
+**Question** - How long did you spend on the coding assignment? What would you add to your solution if you had
 more time? If you didn't spend much time on the coding assignment then use this as an opportunity to
 explain what you would add. 
 
-Pravin - I spend 2 hours on weekdays and about 6 hours on weekends, so close to 20-22 hours in total on this.
+**Pravin** - I spend 2 hours on weekdays and about 6 hours on weekends, so close to 20-22 hours in total on this.
 
 I categories things on MoSCoW and focused on 'must do' at first so I think I have done MVP.
 If I had more time I would still improve solution quite alot.
@@ -33,42 +28,44 @@ I would
   I would like to change that too.
 
 
-2. What was the most useful feature that was added to the latest version of your language of choice?
+## 2. 
+**Question** - What was the most useful feature that was added to the latest version of your language of choice?
 Please include a snippet of code that shows how you've used it.
 
-Pravin - C# is my language of choice, I have been working on it for 9 years and still think there is so much to learn and improve in it, 
+**Pravin** - C# is my language of choice, I have been working on it for 9 years and still think there is so much to learn and improve in it, 
 because it is feature rich, has good community support and is updated frequently.
 
 C# 9 has added
 
-### Top-level statements 
+#### Top-level statements 
 Top-level statements remove unnecessary ceremony from many applications. 
 I have demonstrated this in program.cs
 
-![](img/program_cs.jpg)
+![](img/program_cs.JPG)
 
-### Record types and Init only setters
+#### Record types and Init only setters
 C# 9.0 introduces record types. You use the record keyword to define a reference type that provides built-in functionality for encapsulating data.
 Init only setters provide consistent syntax to initialize members of an object.
 
-![](img/Records_cs.jpg)
+![](img/Records_cs.JPG)
 
 C# 8 has added
 
-### Using declarations
+#### Using declarations
 A using declaration is a variable declaration preceded by the using keyword. It tells the compiler that the variable being declared should be disposed at the end of the enclosing scope.
 
-![](img/using_cs.jpg)
+![](img/using_cs.JPG)
 
-### Fit and finish features
+#### Fit and finish features
 Many of the other features help you write code more efficiently. In C# 9.0, you can omit the type in a new expression when the created object's type is already known. The most common use is in field declarations
 
-![](img/fitnfinish.jpg)
+![](img/fitnfinish.JPG)
 
 
-3. How would you track down a performance issue in production? Have you ever had to do this?
+## 3. 
+**Question** - How would you track down a performance issue in production? Have you ever had to do this?
 
-Pravin - Yes, this has happened in few instances to us and I helped investigate and resolve them.
+**Pravin** - Yes, this has happened in few instances to us and I helped investigate and resolve them.
 
 First thing for me is to find impact and urgencies, what the area they imapacting, whats the user group, is it specific to some region or some part of application,
 so it's easier to track them down.
@@ -97,10 +94,11 @@ Further added graphql at top so that user can only request fields he wanted to s
 
 Report run length has improved from 40 mins to 30 seconds.
 
-4. What was the latest technical book you have read or tech conference you have been to? What did you
+## 4. 
+**Question** - What was the latest technical book you have read or tech conference you have been to? What did you
 learn?
 
-Pravin - I don't read books. But I like to watch videos related to technology mostly because you see what you needed to see and also can try hands-on.
+**Pravin** - I don't read books. But I like to watch videos related to technology mostly because you see what you needed to see and also can try hands-on.
 
 I have pluralsight subscription so I try spend some time weekly to learn something useful.
 https://app.pluralsight.com/profile/pravin-deshmukh-7d
@@ -115,12 +113,14 @@ funny enough, it didn't worked in live when they tried demonstrating. (https://w
 
 But I worked it out later in POC.
 
-5. What do you think about this technical assessment?
+## 5. 
+**Question** -  What do you think about this technical assessment?
 
-Pravin - Assignment is good and got me thinking on multiple things.
+**Pravin** - Assignment is good and got me thinking on multiple things.
 
 
-6. Please, describe yourself using JSON.
+## 6. 
+**Question** - . Please, describe yourself using JSON.
 
 ```
 [
