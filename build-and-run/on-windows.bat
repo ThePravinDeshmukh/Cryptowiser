@@ -1,4 +1,5 @@
+cd ..\src\Cryptowiser\
 
-
-dotnet build ..\src\Cryptowiser\Cryptowiser.csproj
-dotnet run --project ..\src\Cryptowiser\Cryptowiser.csproj
+SET ASPNETCORE_Environment=Development
+dotnet build
+dotnet run
