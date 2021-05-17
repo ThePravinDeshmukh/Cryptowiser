@@ -2,17 +2,11 @@
 # Answers to technical questions
 
 
-4. What was the latest technical book you have read or tech conference you have been to? What did you
-learn?
-5. What do you think about this technical assessment?
-6. Please, describe yourself using JSON.
-
-
 Q 1. How long did you spend on the coding assignment? What would you add to your solution if you had
 more time? If you didn't spend much time on the coding assignment then use this as an opportunity to
 explain what you would add. 
 
-Pravin - I spend 2 hours on weekdays and about 6 hours on weekends, so close to 20-22 hours in total on this.
+**Pravin** - I spend 2 hours on weekdays and about 6 hours on weekends, so close to 20-22 hours in total on this.
 
 I categories things on MoSCoW and focused on 'must do' at first so I think I have done MVP.
 If I had more time I would still improve solution quite alot.
@@ -36,7 +30,7 @@ I would
 2. What was the most useful feature that was added to the latest version of your language of choice?
 Please include a snippet of code that shows how you've used it.
 
-Pravin - C# is my language of choice, I have been working on it for 9 years and still think there is so much to learn and improve in it, 
+**Pravin** - C# is my language of choice, I have been working on it for 9 years and still think there is so much to learn and improve in it, 
 because it is feature rich, has good community support and is updated frequently.
 
 C# 9 has added
@@ -68,7 +62,7 @@ Many of the other features help you write code more efficiently. In C# 9.0, you 
 
 3. How would you track down a performance issue in production? Have you ever had to do this?
 
-Pravin - Yes, this has happened in few instances to us and I helped investigate and resolve them.
+**Pravin** - Yes, this has happened in few instances to us and I helped investigate and resolve them.
 
 First thing for me is to find impact and urgencies, what the area they imapacting, whats the user group, is it specific to some region or some part of application,
 so it's easier to track them down.
@@ -100,7 +94,7 @@ Report run length has improved from 40 mins to 30 seconds.
 4. What was the latest technical book you have read or tech conference you have been to? What did you
 learn?
 
-Pravin - I don't read books. But I like to watch videos related to technology mostly because you see what you needed to see and also can try hands-on.
+**Pravin** - I don't read books. But I like to watch videos related to technology mostly because you see what you needed to see and also can try hands-on.
 
 I have pluralsight subscription so I try spend some time weekly to learn something useful.
 https://app.pluralsight.com/profile/pravin-deshmukh-7d
@@ -117,7 +111,7 @@ But I worked it out later in POC.
 
 5. What do you think about this technical assessment?
 
-Pravin - Assignment is good and got me thinking on multiple things.
+**Pravin** - Assignment is good and got me thinking on multiple things.
 
 
 6. Please, describe yourself using JSON.
