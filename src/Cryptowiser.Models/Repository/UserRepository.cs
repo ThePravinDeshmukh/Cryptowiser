@@ -70,52 +70,6 @@ namespace Cryptowiser.Models.Repository
             passwordSalt = hmac.Key;
             passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
         }
-        public void Update(User userParam, string password = null)
-        {
-            var user = _context.Users.Find(userParam.Id);
-
-            if (user == null)
-                throw new ValidationException("VE003", Constants.USER_NOT_FOUND);
-
-            // update username if it has changed
-            if (!string.IsNullOrWhiteSpace(userParam.Username) && userParam.Username != user.Username)
-            {
-                // throw error if the new username is already taken
-                if (_context.Users.Any(x => x.Username == userParam.Username))
-                    throw new ValidationException("VE003", Constants.USERNAME_TAKEN);
-
-                user.Username = userParam.Username;
-            }
-
-            // update user properties if provided
-            if (!string.IsNullOrWhiteSpace(userParam.FirstName))
-                user.FirstName = userParam.FirstName;
-
-            if (!string.IsNullOrWhiteSpace(userParam.LastName))
-                user.LastName = userParam.LastName;
-
-            // update password if provided
-            if (!string.IsNullOrWhiteSpace(password))
-            {
-                CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
-
-                user.PasswordHash = passwordHash;
-                user.PasswordSalt = passwordSalt;
-            }
-
-            _context.Users.Update(user);
-            _context.SaveChanges();
-        }
-
-        public void Delete(int id)
-        {
-            var user = _context.Users.Find(id);
-            if (user != null)
-            {
-                _context.Users.Remove(user);
-                _context.SaveChanges();
-            }
-        }
 
         private static bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
         {

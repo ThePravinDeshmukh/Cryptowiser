@@ -97,9 +97,6 @@ function ShowLogin() {
       Signed in as: { user.lastName }, { user.firstName }
     </DropdownToggle>
     <DropdownMenu right>
-      <DropdownItem>
-        Profile
-      </DropdownItem>
       <DropdownItem divider />
       <DropdownItem>
         <NavLink tag={Link} className="nav-link" to="#" onClick={e=> logout()}>Logout</NavLink>

@@ -14,7 +14,7 @@ If I had more time I would still improve solution quite alot.
 
 I would 
 
-  - Add Graphql on backend API - I like graphql querying, and it's usually first thing I add any http api.
+  - Add Graphql on backend API - I like graphql querying.
   - I would disconnect user requests directly calling external source for rates.
   Instead I would create backgroud process to poll external sources for rates 
   and then store exchange rates in internal cache and update them periodically.

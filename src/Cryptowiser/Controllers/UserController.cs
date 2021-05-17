@@ -107,30 +107,5 @@ namespace Cryptowiser.Controllers
             var model = _mapper.Map<UserModel>(user);
             return Ok(model);
         }
-
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] UpdateModel model)
-        {
-            var user = _mapper.Map<User>(model);
-            user.Id = id;
-
-            try
-            {
-                _userRepository.Update(user, model.Password);
-                return Ok();
-            }
-            catch (ValidationException ex)
-            {
-                Log.Error(ex.ToString());
-                return BadRequest(new { message = ex.Message });
-            }
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            _userRepository.Delete(id);
-            return Ok();
-        }
     }
 }

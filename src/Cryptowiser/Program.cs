@@ -21,7 +21,7 @@ Host.CreateDefaultBuilder(args)
             options.Limits.MaxRequestBodySize = null;
             options.AllowSynchronousIO = true;
         })
-        .UseUrls("http://localhost:5000");
+        .UseUrls("http://+:50001");
     })
     .Build()
     .Run();

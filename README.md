@@ -12,24 +12,27 @@ The project has an ASP.NET Core app and a React app. The ASP.NET Core app is int
 You can use either the latest version of Visual Studio or simply Docker CLI and .NET CLI for Windows, Mac and Linux.
 
 ## Windows 
-Prerequisite
 
 	Required - Dotnet Core 5 SDK  https://dotnet.microsoft.com/download/dotnet/5
-	Optional - Visual Studio 2019  https://visualstudio.microsoft.com/vs/
+	Required - NodeJs Installed
+
 Run
-```run\run-on-windows.bat```
+```run-on-windows.bat```
+
+Note: This will restore dependencies using 'npm' and may take several minutes.
 
 Browse to
   http://localhost:5000/
 
-![](img/run-via-dotnet-cli.gif)
+Expected result
+![](img/run-on-dotnet-cli.gif)
 
 ## Docker
 
     Required - Docker Engine Installed https://docs.docker.com/engine/install/
 
 Run
-```run\run-on-docker.bat```
+```run-on-docker.bat```
 
 Browse to
   http://localhost:5000/

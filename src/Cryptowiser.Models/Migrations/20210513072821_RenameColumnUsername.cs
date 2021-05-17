@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cryptowiser.Models.Migrations
 {
+    [ExcludeFromCodeCoverage]
     public partial class RenameColumnUsername : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

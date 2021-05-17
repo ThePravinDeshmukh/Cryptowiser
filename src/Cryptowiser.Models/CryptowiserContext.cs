@@ -19,11 +19,11 @@ namespace Cryptowiser.Models
             Configuration = configuration;
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            // connect to sql server database
-            options.UseSqlServer(Configuration.GetConnectionString("CryptowiserContext"));
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder options)
+        //{
+        //    // connect to sql server database
+        //    options.UseSqlServer(Configuration.GetConnectionString("CryptowiserContext"));
+        //}
         public DbSet<User> Users { get; set; }
         public DbSet<Symbol> Symbols { get; set; }
 

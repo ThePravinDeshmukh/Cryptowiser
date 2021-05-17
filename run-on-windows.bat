@@ -1,4 +1,4 @@
-cd ..\src\Cryptowiser\
+cd src\Cryptowiser\
 
 SET ASPNETCORE_Environment=Development
 dotnet build
