@@ -8,7 +8,7 @@
 
 # Quick Start - How to Run
 
-You can run Web API on target as Windows or in Docker container.
+You can use either the latest version of Visual Studio or simply Docker CLI and .NET CLI for Windows, Mac and Linux.
 
 ## Windows 
 Prerequisite
@@ -33,6 +33,18 @@ Run
 
 ## Planning & Documentation
 Confluence - https://techfactor.atlassian.net/l/c/EK5xW6qT
+
+## Architecture Overview
+This application is cross-platform at the server and client side, thanks to .NET 5 services capable of running on Linux or Windows containers depending on your Docker host. The architecture proposes a microservice oriented architecture using Http as the communication protocol between the client apps and the microservices.
+
+![](img/architecture-overview.JPG)
+
+
+## Authentication Overview
+JWT authentication to validate API Requests.
+
+![](img/authentication-overview.JPG)
+
 
 ## Tech-Stack
 
