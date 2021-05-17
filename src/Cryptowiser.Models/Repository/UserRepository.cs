@@ -119,14 +119,11 @@ namespace Cryptowiser.Models.Repository
 
         private static bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
         {
+            string passwordHash = Constants.PASSWORD_HASH;
             if (password == null) throw new ArgumentNullException(Constants.PASSWORD);
             if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException(Constants.VALUE_EMPTY_ERROR, Constants.PASSWORD);
-            if (storedHash.Length != 64)
-            {
-                throw new ArgumentException(Constants.INVALID_LENGTH_64, Constants.PASSWORD_HASH);
-            }
-
-            if (storedSalt.Length != 128) throw new ArgumentException(Constants.INVALID_LENGTH_128, Constants.PASSWORD_HASH);
+            if (storedHash.Length != 64) throw new ArgumentException(Constants.INVALID_LENGTH_64, passwordHash);
+            if (storedSalt.Length != 128) throw new ArgumentException(Constants.INVALID_LENGTH_128, passwordHash);
 
             using (var hmac = new System.Security.Cryptography.HMACSHA512(storedSalt))
             {
