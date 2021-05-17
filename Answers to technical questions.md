@@ -37,29 +37,29 @@ because it is feature rich, has good community support and is updated frequently
 
 C# 9 has added
 
-### Top-level statements 
+#### Top-level statements 
 Top-level statements remove unnecessary ceremony from many applications. 
 I have demonstrated this in program.cs
 
-![](img/program_cs.jpg)
+![](img/program_cs.JPG)
 
-### Record types and Init only setters
+#### Record types and Init only setters
 C# 9.0 introduces record types. You use the record keyword to define a reference type that provides built-in functionality for encapsulating data.
 Init only setters provide consistent syntax to initialize members of an object.
 
-![](img/Records_cs.jpg)
+![](img/Records_cs.JPG)
 
 C# 8 has added
 
-### Using declarations
+#### Using declarations
 A using declaration is a variable declaration preceded by the using keyword. It tells the compiler that the variable being declared should be disposed at the end of the enclosing scope.
 
-![](img/using_cs.jpg)
+![](img/using_cs.JPG)
 
-### Fit and finish features
+#### Fit and finish features
 Many of the other features help you write code more efficiently. In C# 9.0, you can omit the type in a new expression when the created object's type is already known. The most common use is in field declarations
 
-![](img/fitnfinish.jpg)
+![](img/fitnfinish.JPG)
 
 
 ## 3. 
