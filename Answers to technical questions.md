@@ -126,85 +126,47 @@ Pravin - Assignment is good and got me thinking on multiple things.
 [
  {
    "name": "Pravin",
+   "lastname": "Deshmukh",
    "about": "I'm a software engineer with special interests in middleware and backend development for complex scalable applications. I also create frontends but mostly I like to write programs which solves problems. ",
    "website": {
 	"personal": "https://thepravindeshmukh.in",
 	"linkedin": "https://www.linkedin.com/in/thepravindeshmukh/"
    },
-   "expertise": [
-		{
-			"name": "Applications Development ",
+   "expertise": {
+		"Applications Development": {
 			"Description": "I have about 9 years of experience designing, implementing, leading and launching software products."
 		},
-		{
-			"name": "Databases",
-			"Description": "I also have special interests in database technologies and persisted storage mechanism. I have expertise and experience working in SQL."
+		"Databases": {
+			"Description": "I also have special interests in database technologies. I have expertise and experience working in SQL."
 		},
-		{
-			"name": "Dev Ops",
-			"Description": "I like to code but more than that I like to see it move through SDLC phasesand Dev Ops skills come handy to do that job."
+		"Dev Ops": {
+			"Description": "I work in cross functional team where I work across the entire application lifecycle, from development and test to deployment to operations."
 		}
-	],
-   "skills": [
+	},
+   "skills": 
 		{
-			"name": "C#",
-			"ExperienceInYears": "9"
-		},
-		{
-			"name": "SQL",
-			"ExperienceInYears": "9"
-		},
-		{
-			"name": ".NET CORE",
-			"ExperienceInYears": "4"
-		},
-		{
-			"name": "Microservices",
-			"ExperienceInYears": "5"
-		},
-		{
-			"name": "JavaScript",
-			"ExperienceInYears": "1"
-		},
-		{
-			"name": "Docker",
-			"ExperienceInYears": "1"
-		},
-		{
-			"name": "Jenkins-Ansible",
-			"ExperienceInYears": "2"
-		},
-		{
-			"name": "Scrum And Agile",
-			"ExperienceInYears": "5"
-		}
-	],
-   "professinalCareer": [
-		{
-			"title": "Associate Lead Developer",
-			"company": "Nomura",
-			"tenure": "Nov 2017-Present",
-			"description": "Working as a full stack developer for finance applications. Develop system using C#, .NET Core and JavaScript based micro-services and micro-front ends."
-		},
-		{
-			"title": "Software Developer",
-			"company": "Travelex",
-			"tenure": "Dec 2015-Nov 2017",
-			"description": "Developing web based apps with .Net MVC Following Test driven development. Working on database systems such as SQL, MongoDB. Service based achietecture using WCF and Web APIs."
-		},
-		{
-			"title": "Software Developer",
-			"company": "AR Wonders Technologies",
-			"tenure": "Jul 2014-Dec 2015",
-			"description": "Developing web based apps with .Net MVC, WCF and Web API."
-		},
-		{
-			"title": "Software Developer",
-			"company": "Mensa Consulting Services",
-			"tenure": "Jul 2012-Jul 2014",
-			"description": "Software Development of ERP based application in VB.NET and C#.NET"
-		}
-	]
+			"C#":  {
+          "ExperienceInYears": "9"
+      },
+			".NET CORE":  {
+          "ExperienceInYears": "9"
+      },
+			"Microservices":  {
+          "ExperienceInYears": "5"
+      },
+			"Scrum And Agile":  {
+          "ExperienceInYears": "5"
+      },
+			"JavaScript":  {
+          "ExperienceInYears": "1"
+      },
+			"Docker":  {
+          "ExperienceInYears": "1"
+      },
+			"Jenkins-Ansible":  {
+          "ExperienceInYears": "2"
+      }
+    }
  }
 ]
 ```

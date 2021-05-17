@@ -1,1 +1,0 @@
-START dotnet run --project ..\src\Cryptowiser\Cryptowiser.csproj
