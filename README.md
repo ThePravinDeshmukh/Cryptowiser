@@ -16,7 +16,10 @@ Prerequisite
 	Required - Dotnet Core 5 SDK  https://dotnet.microsoft.com/download/dotnet/5
 	Optional - Visual Studio 2019  https://visualstudio.microsoft.com/vs/
 Run
-```run\via-dotnet-cli.bat```
+```run\run-on-windows.bat```
+
+Browse to
+  http://localhost:5000/
 
 ![](img/run-via-dotnet-cli.gif)
 
@@ -25,11 +28,12 @@ Run
     Required - Docker Engine Installed https://docs.docker.com/engine/install/
 
 Run
-```run\via-docker.bat```
+```run\run-on-docker.bat```
 
-![](img/run-via-docker.gif)
+Browse to
+  http://localhost:5000/
 
-
+![](img/run-on-docker.gif)
 
 ## Planning & Documentation
 Confluence - https://techfactor.atlassian.net/l/c/EK5xW6qT

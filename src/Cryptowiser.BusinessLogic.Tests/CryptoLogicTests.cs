@@ -13,8 +13,8 @@ namespace Cryptowiser.BusinessLogic.Tests
 {
     public class CryptoLogicTests
     {
-        CryptoLogic _target;
-        Mock<ICryptoExternalRates> _mockCryptoExternalRates;
+        readonly CryptoLogic _target;
+        readonly Mock<ICryptoExternalRates> _mockCryptoExternalRates;
 
         public CryptoLogicTests()
         {

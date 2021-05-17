@@ -14,7 +14,7 @@ namespace Cryptowiser.BusinessLogic
     public class CryptoLogic : ICryptoLogic
     {
 
-        private string[] DefaultConvertTo =
+        private readonly string[] DefaultConvertTo =
             {
                 CurrencyEnum.USD.ToString(),
                 CurrencyEnum.EUR.ToString(),
@@ -60,7 +60,7 @@ namespace Cryptowiser.BusinessLogic
 
         private IEnumerable<SymbolRate> GetRatesForCrypto(string cryptobaseurl, string key, string symbol, string[] convertTo)
         {
-            List<SymbolRate> symbolRates = new List<SymbolRate>();
+            List<SymbolRate> symbolRates = new();
 
             try
             {

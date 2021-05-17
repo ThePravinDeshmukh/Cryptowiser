@@ -11,6 +11,8 @@
     <AssemblyName>Cryptowiser</AssemblyName>
     <UserSecretsId>97e492b6-e1b1-48dd-9031-4ea6c55c8794</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
   <ItemGroup>

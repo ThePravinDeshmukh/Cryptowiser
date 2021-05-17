@@ -31,7 +31,7 @@ namespace Cryptowiser.ExternalServices
 
             URL.Query = queryString.ToString();
 
-            var client = new WebClient();
+            using var client = new WebClient();
             client.Headers.Add(API_KEY, key);
             client.Headers.Add(ACCEPTS, APPLICATION_JSON);
             return client.DownloadString(URL.ToString());
@@ -47,7 +47,7 @@ namespace Cryptowiser.ExternalServices
 
             URL.Query = queryString.ToString();
 
-            var client = new WebClient();
+            using var client = new WebClient();
             client.Headers.Add(API_KEY, key);
             client.Headers.Add(ACCEPTS, APPLICATION_JSON);
             return client.DownloadString(URL.ToString());

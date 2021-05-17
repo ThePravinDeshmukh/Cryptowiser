@@ -20,8 +20,8 @@ namespace Cryptowiser.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private IUserRepository _userRepository;
-        private IMapper _mapper;
+        private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
         private readonly AppSettings _appSettings;
 
         public UserController(
@@ -59,10 +59,10 @@ namespace Cryptowiser.Controllers
 
             return Ok(new
             {
-                Id = user.Id,
-                Username = user.Username,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
+                user.Id,
+                user.Username,
+                user.FirstName,
+                user.LastName,
                 Token = tokenString
             });
         }

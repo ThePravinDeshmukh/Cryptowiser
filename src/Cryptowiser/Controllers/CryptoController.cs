@@ -24,8 +24,8 @@ namespace Cryptowiser.Controllers
     [Route("api/[controller]")]
     public class CryptoController : ControllerBase
     {
-        private ICryptoLogic _cryptoLogic;
-        private IMapper _mapper;
+        private readonly ICryptoLogic _cryptoLogic;
+        private readonly IMapper _mapper;
         private readonly AppSettings _appSettings;
 
         public CryptoController(

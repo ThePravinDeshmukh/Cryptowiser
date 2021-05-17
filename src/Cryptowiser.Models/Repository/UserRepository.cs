@@ -48,8 +48,7 @@ namespace Cryptowiser.Models.Repository
             if (string.IsNullOrWhiteSpace(password))
                 throw new ValidationException("VE001", Constants.PASSWORD_EMPTY_ERROR);
 
-            byte[] passwordHash, passwordSalt;
-            CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
@@ -67,11 +66,9 @@ namespace Cryptowiser.Models.Repository
             if (password == null) throw new ArgumentNullException(Constants.PASSWORD);
             if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException(Constants.VALUE_EMPTY_ERROR, Constants.PASSWORD);
 
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
+            using var hmac = new System.Security.Cryptography.HMACSHA512();
+            passwordSalt = hmac.Key;
+            passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
         }
         public void Update(User userParam, string password = null)
         {
@@ -100,8 +97,7 @@ namespace Cryptowiser.Models.Repository
             // update password if provided
             if (!string.IsNullOrWhiteSpace(password))
             {
-                byte[] passwordHash, passwordSalt;
-                CreatePasswordHash(password, out passwordHash, out passwordSalt);
+                CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
 
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
@@ -125,7 +121,11 @@ namespace Cryptowiser.Models.Repository
         {
             if (password == null) throw new ArgumentNullException(Constants.PASSWORD);
             if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException(Constants.VALUE_EMPTY_ERROR, Constants.PASSWORD);
-            if (storedHash.Length != 64) throw new ArgumentException(Constants.INVALID_LENGTH_64, Constants.PASSWORD_HASH);
+            if (storedHash.Length != 64)
+            {
+                throw new ArgumentException(Constants.INVALID_LENGTH_64, Constants.PASSWORD_HASH);
+            }
+
             if (storedSalt.Length != 128) throw new ArgumentException(Constants.INVALID_LENGTH_128, Constants.PASSWORD_HASH);
 
             using (var hmac = new System.Security.Cryptography.HMACSHA512(storedSalt))

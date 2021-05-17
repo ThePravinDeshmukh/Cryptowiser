@@ -14,8 +14,8 @@ namespace Cryptowiser.BusinessLogic.Tests
 {
     public class UserLogicTests
     {
-        UserLogic _target;
-        Mock<IUserRepository> _mockUserRepository;
+        readonly UserLogic _target;
+        readonly Mock<IUserRepository> _mockUserRepository;
 
         public UserLogicTests()
         {
