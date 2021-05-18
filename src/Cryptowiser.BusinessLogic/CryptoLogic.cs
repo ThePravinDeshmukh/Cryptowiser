@@ -72,7 +72,8 @@ namespace Cryptowiser.BusinessLogic
             try
             {
 
-                _ = Parallel.ForEach(convertTo, (string currency) =>
+                //Parallel.ForEach(convertTo, (string currency) =>
+                foreach(string currency in convertTo)
                   {
                       JObject externalRatesJObject = JsonConvert.DeserializeObject<JObject>(_cryptoExternalRates.GetExternalQuote(cryptobaseurl, key, symbol, currency));
 
@@ -86,7 +87,7 @@ namespace Cryptowiser.BusinessLogic
                                   PriceDetail = ((JProperty)symbol).Value.ToObject<PriceDetail>()
                               })
                           .ToList());
-                  });
+                  }//);
 
             }
             catch (Exception ex)
