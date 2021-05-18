@@ -14,6 +14,7 @@ If I had more time I would still improve solution quite alot.
 
 I would 
 
+  - Integration Tests - I really wanted to add end to end test for sandbox api, I started but couldn't finish in it.
   - Add Graphql on backend API - I like graphql querying.
   - I would disconnect user requests directly calling external source for rates.
   Instead I would create backgroud process to poll external sources for rates 
@@ -26,6 +27,7 @@ I would
   Also, I really want to structure code properly on fronend.
   At the momemnt, I am logging errors and responses in console.log, 
   I would like to change that too.
+  - I would excrypt connection strings, secrets and move them to vault.
 
 
 ## 2. 

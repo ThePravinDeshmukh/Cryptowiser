@@ -85,14 +85,14 @@ export class Autocom extends Component<IProps, IAutocomState> {
                 <Table  aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell >Price</TableCell>
-                    <TableCell  align="right">Last Updated</TableCell>
+                    <TableCell ><b>Price</b></TableCell>
+                    <TableCell  align="right"><b>Last Updated</b></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {symbolRates.map((symbolRate) => (
                     <TableRow key={symbolRate.name}>
-                      <TableCell >{symbolRate.priceDetail.price} {symbolRate.name}</TableCell>
+                      <TableCell ><b>{symbolRate.name}</b> {symbolRate.priceDetail.price} </TableCell>
                       <TableCell align="right">{symbolRate.priceDetail.lastUpdated}</TableCell>
                     </TableRow>
                   ))}
@@ -107,14 +107,19 @@ export class Autocom extends Component<IProps, IAutocomState> {
                 
           let contents = this.state.Symbol
           ? Autocom.renderCryptoRatesTable(this.state.Symbol , this.state.rates)
-          : <p><em>Please Search and Select Crypto Currency Above!</em></p>;
+          : <p><b></b></p>;
           
           let refreshLink = this.state.Symbol ?
           <p><a href="#" onClick={e=> this.populateCryptoRates(this.state.Symbol)}>Refresh</a></p>
           : null;
 
+          let pleaseWait = this.state.Symbol ?
+          null
+          : <p><b>Please Select Crypto Currency:</b></p>;
+
           return (  
             <div>  
+              {pleaseWait}
               <table>
                 <tr>
                   <td>

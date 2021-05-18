@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using Cryptowiser.BusinessLogic;
+﻿using Cryptowiser.BusinessLogic;
 using AutoMapper;
 using Cryptowiser.Helpers;
 using Cryptowiser.Models;
-using Cryptowiser.Models.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Serilog;
 
 namespace Cryptowiser.Controllers
@@ -25,16 +15,13 @@ namespace Cryptowiser.Controllers
     public class CryptoController : ControllerBase
     {
         private readonly ICryptoLogic _cryptoLogic;
-        private readonly IMapper _mapper;
         private readonly AppSettings _appSettings;
 
         public CryptoController(
             ICryptoLogic cryptoLogic,
-            IMapper mapper,
             IOptions<AppSettings> appSettings)
         {
             _cryptoLogic = cryptoLogic;
-            _mapper = mapper;
             _appSettings = appSettings.Value;
         }
 
@@ -42,11 +29,13 @@ namespace Cryptowiser.Controllers
         [HttpGet("symbols/{sort}")]
         public IActionResult GetAll(string sort)
         {
+            if (string.IsNullOrEmpty(sort))
+                return BadRequest(new { message = "Please Input Sort Order" });
+
             try
             {
                 var symbols = _cryptoLogic.GetSymbols(_appSettings.CryptoBaseUrl, _appSettings.ApiKey, sort);
-                var model = _mapper.Map<IList<string>>(symbols);
-                return Ok(model);
+                return Ok(symbols);
             }
             catch (BadResponseException ex)
             {
@@ -61,6 +50,8 @@ namespace Cryptowiser.Controllers
         [HttpPost("rates/{symbol}")]
         public IActionResult GetRates(string symbol, [FromBody] string[] convertTo)
         {
+            if (string.IsNullOrEmpty(symbol))
+                return BadRequest(new { message = "Please Input Symbol" });
             try
             {
                 var rates = _cryptoLogic.GetQuotes(_appSettings.CryptoBaseUrl, _appSettings.ApiKey, symbol, convertTo);

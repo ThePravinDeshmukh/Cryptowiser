@@ -99,7 +99,7 @@ function Login() {
             <Typography component="h1" variant="h5">
               Login
             </Typography>
-            <form className={classes.form} noValidate onSubmit={onSubmit}>
+            <form className={classes.form} onSubmit={onSubmit}>
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -108,7 +108,6 @@ function Login() {
                 id="username"
                 label="Username"
                 name="username"
-                autoComplete="username"
                 onChange={onChange}
               />
               <TextField
@@ -121,7 +120,6 @@ function Login() {
                 type="password"
                 id="password"
                 onChange={onChange}
-                autoComplete="current-password"
               />
               <Button
                 type="submit"

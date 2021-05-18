@@ -2,8 +2,10 @@
 using Cryptowiser.ExternalServices;
 using Cryptowiser.Models.Repository;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,6 +19,7 @@ namespace Cryptowiser.IoC
             services.AddScoped<ICryptoExternalRates, CryptoExternalRates>();
             services.AddScoped<ICryptoLogic, CryptoLogic>();
             services.AddScoped<ICryptoExternalRates, CryptoExternalRates>();
+            services.AddScoped<SecurityTokenHandler, JwtSecurityTokenHandler>();
         }
     }
 }

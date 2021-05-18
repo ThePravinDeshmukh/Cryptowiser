@@ -14,6 +14,7 @@ namespace Cryptowiser.Models.Repository.Tests
     public class UserRepositoryTests
     {
         readonly UserRepository _target;
+        readonly CryptowiserContext _cryptowiserContext;
 
         public UserRepositoryTests()
         {
@@ -21,8 +22,8 @@ namespace Cryptowiser.Models.Repository.Tests
             .UseInMemoryDatabase(databaseName: "CryptowiserContext")
             .Options;
 
-
-            _target = new UserRepository(new CryptowiserContext(options));
+            _cryptowiserContext = new CryptowiserContext(options);
+            _target = new UserRepository(_cryptowiserContext);
         }
 
         [Fact()]
@@ -40,7 +41,7 @@ namespace Cryptowiser.Models.Repository.Tests
         [Fact()]
         public void Authenticate_Should_Return_NULL_When_User_Null()
         {
-            string username = "x", password = "y";
+            string username = It.IsAny<string>(), password = It.IsAny<string>();
             var result = _target.Authenticate(username, password);
             result.Should().BeNull();
         }
@@ -48,12 +49,12 @@ namespace Cryptowiser.Models.Repository.Tests
         [Fact()]
         public void Create_Should_Return_User_Oc_Successful_Login()
         {
-            string username = "x", password = "y";
+            string username = "x2", password = "y2";
             User user = new User
             {
-                FirstName = "a",
-                LastName = "b",
-                Username = "x",
+                FirstName = "a2",
+                LastName = "b2",
+                Username = "x2",
             };
             _target.Create(user, password);
 
@@ -80,7 +81,7 @@ namespace Cryptowiser.Models.Repository.Tests
         [Fact()]
         public void Create_Should_ThrowException_If_User_Exists()
         {
-            string password = null;
+            string password = "y";
             User user = new User
             {
                 FirstName = "a",

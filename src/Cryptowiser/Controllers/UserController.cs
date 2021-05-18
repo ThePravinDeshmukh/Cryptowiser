@@ -23,15 +23,18 @@ namespace Cryptowiser.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly AppSettings _appSettings;
+        private readonly SecurityTokenHandler _tokenHandler;
 
         public UserController(
             IUserRepository userRepository,
             IMapper mapper,
-            IOptions<AppSettings> appSettings)
+            IOptions<AppSettings> appSettings,
+            SecurityTokenHandler tokenHandler)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _appSettings = appSettings.Value;
+            _tokenHandler = tokenHandler;
         }
 
         [AllowAnonymous]
@@ -43,7 +46,7 @@ namespace Cryptowiser.Controllers
             if (user == null)
                 return BadRequest(new { message = Constants.USERNAME_INCORRECT });
 
-            var tokenHandler = new JwtSecurityTokenHandler();
+            
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -54,8 +57,8 @@ namespace Cryptowiser.Controllers
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
+            var token = _tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = _tokenHandler.WriteToken(token);
 
             return Ok(new
             {
@@ -70,6 +73,12 @@ namespace Cryptowiser.Controllers
 
         [HttpGet("authenticate")]
         public IActionResult Authenticate()
+        {
+            return Ok();
+        }
+        [AllowAnonymous]
+        [HttpGet("unauthenticated")]
+        public IActionResult Unauthenticated()
         {
             return Ok();
         }

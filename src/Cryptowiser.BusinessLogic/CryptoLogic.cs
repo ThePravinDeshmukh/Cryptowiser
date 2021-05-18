@@ -8,6 +8,7 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Cryptowiser.BusinessLogic
 {
@@ -62,24 +63,30 @@ namespace Cryptowiser.BusinessLogic
         {
             List<SymbolRate> symbolRates = new();
 
+            if (string.IsNullOrEmpty(symbol))
+                throw new BadResponseException("BR003", "Invalid Symbol!");
+
+            if (convertTo == null || convertTo.Count() == 0)
+                throw new BadResponseException("BR003", "Invalid Currencies!");
+
             try
             {
-                foreach (string currency in convertTo)
-                {
-                    JObject externalRatesJObject = JsonConvert.DeserializeObject<JObject>(_cryptoExternalRates.GetExternalQuote(cryptobaseurl, key, symbol, currency));
 
+                _ = Parallel.ForEach(convertTo, (string currency) =>
+                  {
+                      JObject externalRatesJObject = JsonConvert.DeserializeObject<JObject>(_cryptoExternalRates.GetExternalQuote(cryptobaseurl, key, symbol, currency));
 
-                    symbolRates.AddRange(
-                        externalRatesJObject[Constants.DATA][symbol][Constants.QUOTE]
-                        .Select(
-                            symbol =>
-                            new SymbolRate
-                            {
-                                Name = ((JProperty)symbol).Name,
-                                PriceDetail = ((JProperty)symbol).Value.ToObject<PriceDetail>()
-                            })
-                        .ToList());
-                }
+                      symbolRates.AddRange(
+                          externalRatesJObject[Constants.DATA][symbol][Constants.QUOTE]
+                          .Select(
+                              symbol =>
+                              new SymbolRate
+                              {
+                                  Name = ((JProperty)symbol).Name,
+                                  PriceDetail = ((JProperty)symbol).Value.ToObject<PriceDetail>()
+                              })
+                          .ToList());
+                  });
 
             }
             catch (Exception ex)
@@ -88,7 +95,7 @@ namespace Cryptowiser.BusinessLogic
                 throw new BadResponseException("BR002", ex.Message);
             }
 
-            return symbolRates;
+            return symbolRates.OrderBy(x=>x.Name);
         }
     }
 }

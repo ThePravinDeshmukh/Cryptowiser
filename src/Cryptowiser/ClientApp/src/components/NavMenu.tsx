@@ -51,13 +51,9 @@ export class NavMenu extends Component<IProps, INavMenuState> {
             <NavbarBrand href="/">Cryptowiser</NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} />
             <Collapse isOpen={!this.state.collapsed} navbar>
+              
               <Nav className="mr-auto" navbar>
-                <NavItem>
-                  <NavLink href="/">Home</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="/users">Users</NavLink>
-                </NavItem>
+                <ShowProtectedMenus />
               </Nav>
               <ShowLogin />
             </Collapse>
@@ -67,6 +63,23 @@ export class NavMenu extends Component<IProps, INavMenuState> {
       </header>
     );
   }
+}
+
+function ShowProtectedMenus() {
+  
+  var user = LoggerInUser();
+  if (user.token === undefined) return null;
+
+  return (
+    <ul className="navbar-nav flex-grow">
+      <NavItem>
+        <NavLink href="/">Home</NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink href="/users">Users</NavLink>
+      </NavItem>
+      </ul>
+  );
 }
 
 function ShowLogin() {
@@ -84,11 +97,6 @@ function ShowLogin() {
     </ul>
   );
 
-  function  logout() {
-    localStorage.clear();
-    window.location.href = '/login';
-}
-
   var user: IUser = JSON.parse(localStorage.getItem('user') ?? "");
   return (    
     <Nav className="mr-right" navbar>
@@ -105,4 +113,9 @@ function ShowLogin() {
   </UncontrolledDropdown>
   </Nav>
   );
+}
+
+function  logout() {
+  localStorage.clear();
+  window.location.href = '/login';
 }

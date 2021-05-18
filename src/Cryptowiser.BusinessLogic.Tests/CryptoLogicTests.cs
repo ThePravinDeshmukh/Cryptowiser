@@ -82,7 +82,7 @@ namespace Cryptowiser.BusinessLogic.Tests
             _mockCryptoExternalRates.Setup(x => x.GetExternalQuote(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(string.Empty);
 
             Assert.Throws<BadResponseException>(() => _target.GetQuotes(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
-            _mockCryptoExternalRates.Verify(mock => mock.GetExternalQuote(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once());
+            _mockCryptoExternalRates.Verify(mock => mock.GetExternalQuote(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never());
         }
         [Fact()]
         public void GetQuotes_Should_Return_Valid_SymbolRates__Array()
