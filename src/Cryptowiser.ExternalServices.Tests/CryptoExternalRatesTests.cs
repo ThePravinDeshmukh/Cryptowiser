@@ -48,8 +48,8 @@ namespace Cryptowiser.ExternalServices.Tests
             var data = Assert.IsAssignableFrom<JObject>(
                 JsonConvert.DeserializeObject<JObject>(result));
 
-            var symbols = Assert.IsAssignableFrom<List<SymbolRate>>(
-                data["data"].ToObject<List<SymbolRate>>());
+            var symbols = Assert.IsAssignableFrom<SymbolRate>(
+                data["data"]["BTC"].ToObject<SymbolRate>());
         }
     }
 }

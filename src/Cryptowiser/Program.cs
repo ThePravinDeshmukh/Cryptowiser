@@ -69,7 +69,7 @@ finally
 
 int GetDefinedPorts(IConfiguration config)
 {
-    var port = config.GetValue("PORT", 5000);
+    var port = config.GetValue("PORT", 5050);
     return port;
 }
 
